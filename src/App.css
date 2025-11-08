@@ -1,0 +1,579 @@
+:root {
+  /* Colores Principales */
+  --color-primary-dark: #1f2738; /* Azul Oscuro (Base) */
+  --color-secondary-dark: #2a344a; /* Azul Medio (Sidebar/Card) */
+  --color-primary-gold: #ffc107; /* Dorado (Acentos, Botones) */
+  --color-text-light: #f0f0f0; /* Texto Claro */
+  --color-text-highlight: #ffeb3b; /* Amarillo Brillo */
+
+  /* Variables de Espaciado */
+  --spacing-small: 8px;
+  --spacing-medium: 16px;
+  --spacing-large: 32px;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Arial", sans-serif;
+  color: var(--color-text-light);
+  transition: background-image 0.5s ease, background-color 0.5s ease;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* ======================================= */
+/* 2. ESTILOS DE FONDOS (Body Classes) */
+/* ======================================= */
+
+/* 🛑 FONDO PRINCIPAL PARA LOGIN/REGISTER (CORREGIDO CON celestial-gate.jpg) */
+.celestial-background {
+  background-color: #0d1117;
+  background-image: url("/assets/celestial-gate.jpg"); /* Usando tu nuevo fondo */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.login-background {
+  background-color: #0d1117;
+  background-image: url("/assets/infernal-gate.jpg"); /* Usando tu nuevo fondo */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+/* Fondo para Home, MythPage, Chatbot (Espartano) */
+.spartans-background {
+  background-color: #3f51b5;
+  background-image: url("/assets/spartans-gate.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+.oraculo-background {
+  background-image: url("/assets/oraculo-gate.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+/* ======================================= */
+/* 3. ESTILOS DE AUTENTICACIÓN (Login/Register) */
+/* ======================================= */
+
+/* Contenedor que centra el formulario en la pantalla */
+.auth-container {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center; /* Centrado horizontal */
+  align-items: center; /* Centrado vertical */
+  padding: var(--spacing-large);
+  box-sizing: border-box;
+}
+
+.welcome-card {
+  background-color: #1f2738b3;
+  padding: 20px;
+  border-radius: 10px;
+  color: white;
+  width: 70%;
+  margin: 50px auto;
+}
+
+/* Estilo de la tarjeta del formulario (El cuadro oscuro) */
+.auth-form-card {
+  max-width: 450px;
+  width: 100%;
+  background-color: rgba(30, 30, 50, 0.95);
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  text-align: center;
+}
+
+.auth-form-card h2 {
+  color: var(--color-primary-gold);
+  margin-bottom: 20px;
+  font-size: 1.8em;
+}
+
+.auth-form-card input {
+  padding: 12px 15px;
+  border: 1px solid var(--color-secondary-dark);
+  border-radius: 6px;
+  background-color: var(--color-primary-dark);
+  color: var(--color-text-light);
+  font-size: 1em;
+}
+
+.auth-form-card button {
+  padding: 12px 20px;
+  background-color: var(--color-primary-gold);
+  color: var(--color-primary-dark);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.1em;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.auth-form-card button:hover {
+  background-color: var(--color-text-highlight);
+}
+
+.register-link {
+  margin-top: 10px;
+  font-size: 0.9em;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.register-link a {
+  color: var(--color-primary-gold);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* ======================================= */
+/* 4. ESTILOS DEL LAYOUT PRINCIPAL (Sidebar + Contenido) */
+/* ======================================= */
+
+.main-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: var(--color-secondary-dark);
+  padding: 0; /* 🛑 Eliminamos el padding lateral para que el logo ocupe todo el ancho */
+  padding-bottom: var(
+    --spacing-medium
+  ); /* Mantenemos padding abajo para el botón */
+  transition: transform 0.3s ease, width 0.3s ease;
+  flex-shrink: 0;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  overflow-y: auto;
+  display: flex; /* Necesario para empujar el botón de logout abajo */
+  flex-direction: column;
+}
+
+.sidebar.closed {
+  width: 0;
+  padding: 0;
+  overflow: hidden;
+  transform: translateX(-100%);
+}
+
+.sidebar-header {
+  text-align: center;
+  /* Reducimos el margen inferior */
+  margin-bottom: var(--spacing-medium);
+  padding-bottom: var(--spacing-small);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  /* El borde de la imagen del logo ahora debe ser manejado por .sidebar-logo */
+}
+
+/* 🛑 CLASE PARA QUE EL LOGO CUBRA EL ANCHO DEL SIDEBAR */
+.sidebar-header .sidebar-logo {
+  width: 100%; /* Ocupa el 100% del ancho */
+  height: auto;
+  border-radius: 0; /* Eliminamos el borde circular */
+  margin-bottom: 10px;
+  object-fit: cover;
+  display: block;
+}
+
+.sidebar-menu {
+  padding: 0 var(--spacing-medium); /* Añadimos el padding aquí solo para los enlaces */
+}
+
+.sidebar-menu a {
+  display: block;
+  color: var(--color-text-light);
+  text-decoration: none;
+  padding: 10px 15px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  transition: background-color 0.2s;
+  font-size: 1.1em;
+}
+
+.sidebar-menu a:hover,
+.sidebar-menu a.active {
+  background-color: var(--color-primary-dark);
+  color: var(--color-primary-gold);
+}
+
+/* 🛑 Eliminamos el estilo para el título H4 "Mitología" ya que lo quitamos del JSX */
+/* .sidebar-menu h4 {} */
+
+/* 🛑 BOTÓN DE CERRAR SESIÓN (Más visible y anclado abajo) */
+.logout-button {
+  display: block;
+  text-align: center;
+  color: var(--color-text-light);
+  background-color: var(--color-primary-dark);
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  margin-top: auto; /* 🛑 Lo empuja hacia la parte inferior del sidebar */
+  font-weight: bold;
+  transition: background-color 0.2s;
+  margin-left: var(
+    --spacing-medium
+  ); /* Añadimos padding lateral para que no toque el borde */
+  margin-right: var(--spacing-medium);
+}
+
+.logout-button:hover {
+  background-color: #d32f2f;
+  color: white;
+}
+
+.content-area-wrapper {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.content-area {
+  flex-grow: 1;
+}
+
+/* ======================================= */
+/* 5. ESTILOS ESPECÍFICOS DE PÁGINAS */
+/* ======================================= */
+
+.mythology-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: var(--spacing-large);
+  background-color: rgba(42, 52, 74, 0.9);
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+
+/* ======================================= */
+/* 6. ESTILOS DEL CHATBOT (ODÍN) - Perfecto */
+/* ======================================= */
+
+.chatbot-container {
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: rgba(30, 30, 50, 0.95);
+  border-radius: 12px;
+  overflow: hidden;
+  height: calc(100vh - 120px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+}
+
+.chatbot-visual-section {
+  width: 35%;
+  background-color: var(--color-secondary-dark);
+  padding: var(--spacing-large);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border-right: 3px solid var(--color-primary-gold);
+}
+
+.chatbot-visual-section img {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 20px;
+  border: 5px solid var(--color-primary-gold);
+}
+
+.chatbot-visual-section h3 {
+  color: var(--color-text-light);
+  margin-top: 10px;
+}
+
+.chatbot-chat-section {
+  width: 65%;
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-large);
+}
+
+.chat-messages {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding-right: 15px;
+  margin-bottom: 15px;
+}
+
+.chat-message {
+  padding: 10px 15px;
+  border-radius: 15px;
+  max-width: 80%;
+  margin-bottom: 10px;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+.user-message {
+  background-color: var(--color-primary-gold);
+  color: var(--color-primary-dark);
+  margin-left: auto;
+  border-bottom-right-radius: 0;
+  font-weight: 500;
+}
+
+.bot-message {
+  background-color: var(--color-primary-dark);
+  color: var(--color-text-light);
+  margin-right: auto;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom-left-radius: 0;
+}
+
+.chat-input-form {
+  display: flex;
+  gap: 10px;
+}
+
+.chat-input-form input {
+  flex-grow: 1;
+  padding: 12px 15px;
+  border: 1px solid var(--color-secondary-dark);
+  border-radius: 20px;
+  background-color: var(--color-primary-dark);
+  color: var(--color-text-light);
+}
+
+.chat-input-form button {
+  padding: 10px 20px;
+  background-color: var(--color-primary-gold);
+  color: var(--color-primary-dark);
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* ------------------------------------ */
+/* 1. FONDOS DE PÁGINAS DE MITOLOGÍA */
+/* ------------------------------------ */
+
+.mythology-page-container {
+  /* Propiedades base para las imágenes de fondo */
+  width: 100%;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  min-height: 100%;
+  box-sizing: border-box;
+  padding-top: 80px; /* Espacio superior para que el contenido no pegue al borde */
+  padding-bottom: 50px; /* Espacio inferior */
+}
+
+/* Fondo para Mitología Griega/Romana */
+.greek-bg {
+  width: 100%;
+  background-image: url("/assets/griega-page.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  box-sizing: border-box;
+}
+
+/* Fondo para Mitología Nórdica */
+.norse-bg {
+  background-image: url("/assets/nordica-page.jpg");
+}
+
+/* Fondo para Mitología Egipcia */
+.egyptian-bg {
+  background-image: url("/assets/egipcia-page.jpg");
+}
+
+/* ------------------------------------ */
+/* 2. ESTILOS DEL GLOSARIO (Centrado y Fondo Azul) */
+/* ------------------------------------ */
+
+.glosario-container {
+  /* Centrado Horizontalmente */
+  max-width: 900px; /* Limita el ancho del glosario */
+  margin: 50px auto; /* Centra el bloque en el centro de la página y añade margen superior/inferior */
+  padding: 20px;
+  /* Esto podría ser útil si quieres un fondo detrás de todo el glosario */
+  /* background-color: rgba(0, 0, 0, 0.2); 
+    border-radius: 10px; */
+}
+
+.alphabet-header {
+  /* Estilo para las letras del abecedario (A, B, C...) */
+  color: white; /* Texto blanco */
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.5
+  ); /* Fondo negro semitransparente para que destaque */
+  padding: 8px 15px;
+  border-radius: 5px;
+  font-size: 1.8rem;
+  font-weight: bold;
+  display: inline-block; /* Permite que el fondo sea solo del ancho de la letra */
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+
+.myth-entry {
+  /* Estilo para la caja de cada mito */
+  /* El mismo color azul oscuro que usaste en el Home, 
+       pero con una opacidad un poco mayor (0.9) para máxima legibilidad. */
+  background-color: rgba(25, 25, 112, 0.9);
+  color: white;
+  padding: 15px;
+  margin-bottom: 15px; /* Espacio entre las cajas de mitos */
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Sombra para darle profundidad */
+}
+
+.myth-entry h3 {
+  margin-top: 0;
+  margin-bottom: 5px;
+  color: #ffd700; /* Dorado para el nombre del mito (opcional, para diferenciar) */
+  font-size: 1.4rem;
+}
+
+.myth-entry p {
+  margin-bottom: 0;
+  line-height: 1.5;
+}
+
+/* ======================================= */
+/* 7. MEDIA QUERIES PARA DISPOSITIVOS MÓVILES */
+/* ======================================= */
+
+@media (max-width: 768px) {
+  /* --- 7.1 AJUSTES GENERALES Y AUTH --- */
+
+  /* Reducir el padding general en el contenido y la tarjeta de autenticación */
+  .content-area {
+    padding: var(--spacing-medium); /* 16px */
+  }
+
+  .auth-form-card {
+    padding: 30px 20px;
+    margin: 20px;
+  }
+
+  /* --- 7.2 LAYOUT PRINCIPAL (Sidebar y Contenido) --- */
+
+  .main-layout {
+    /* Desactivar el flexbox lateral y forzar el apilamiento */
+    flex-direction: column;
+  }
+
+  /* La barra lateral debe ocupar el ancho completo en la parte superior del móvil
+     y dejar de ser 'sticky' para permitir el desplazamiento. */
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative; /* Ya no está fija */
+    /* El sidebar abierto se mostrará encima del contenido */
+    z-index: 100;
+  }
+
+  /* Aseguramos que el estado 'closed' lo oculte completamente */
+  .sidebar.closed {
+    /* Puedes usar height: 0 o transform: translateY(-100%) si usas un botón de menú */
+    display: none;
+  }
+
+  .sidebar-menu {
+    padding: var(--spacing-small) var(--spacing-medium);
+  }
+
+  /* --- 7.3 REESTRUCTURACIÓN DEL CHATBOT --- */
+
+  .chatbot-container {
+    /* Forzar el apilamiento vertical */
+    flex-direction: column;
+    /* Reducir la altura máxima y permitir el scroll */
+    height: calc(100vh - 80px); /* Ajustar un poco la altura para móviles */
+    max-height: 80vh; /* Máximo 80% de la altura de la vista */
+    margin: 0;
+    width: 100%;
+    border-radius: 0;
+  }
+
+  /* La sección visual ahora debe ocupar el ancho completo */
+  .chatbot-visual-section {
+    width: 100%;
+    padding: var(--spacing-medium);
+    border-right: none; /* Eliminar borde derecho */
+    border-bottom: 3px solid var(--color-primary-gold); /* Poner borde inferior */
+  }
+
+  /* Reducir el tamaño de la imagen del bot */
+  .chatbot-visual-section img {
+    width: 100px;
+    height: 100px;
+  }
+
+  /* La sección de chat ahora también ocupa el ancho completo */
+  .chatbot-chat-section {
+    width: 100%;
+    padding: var(--spacing-medium);
+  }
+
+  /* Asegurar que los mensajes no se extiendan demasiado */
+  .chat-message {
+    max-width: 95%;
+    padding: 8px 12px;
+  }
+
+  /* Ajuste del formulario de entrada */
+  .chat-input-form input {
+    padding: 10px 15px;
+  }
+
+  /* Ajuste del área de mensajes */
+  .chat-messages {
+    padding-right: 5px; /* Menos espacio para el scrollbar */
+  }
+
+  /* --- 7.4 FONDOS DE MITOLOGÍA --- */
+
+  .mythology-page-container {
+    /* Reducir el padding para aprovechar la pantalla */
+    padding-top: var(--spacing-large);
+    padding-bottom: var(--spacing-medium);
+  }
+
+  .glosario-container {
+    margin: var(--spacing-medium) auto;
+    padding: var(--spacing-small);
+  }
+
+  .myth-entry {
+    padding: 12px;
+  }
+}
+
+/* Punto de corte extra para teléfonos muy pequeños (opcional) */
+@media (max-width: 480px) {
+  .auth-form-card {
+    width: 90%;
+    max-width: none;
+  }
+}
