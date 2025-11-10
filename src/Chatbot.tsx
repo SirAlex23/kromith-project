@@ -230,16 +230,20 @@ const Chatbot = () => {
     setIsLoading(true);
 
     try {
-      // 2. LLAMADA A LA API DE GEMINI (aiClient aquí es seguro gracias al 'if' previo)
+      // 2. LLAMADA A LA API DE GEMINI
       const response = await aiClient.models.generateContent({
         model: "gemini-2.5-flash", // O el modelo que uses
+        // 🛑 AÑADIMOS UNA INSTRUCCIÓN DE SISTEMA PARA FORZAR EL ESPAÑOL
+        config: {
+          systemInstruction:
+            "Eres Odín, el Padre de Todo. Responde siempre en español de forma mitológica y épica, sin importar el idioma en el que te pregunten. Mantén las respuestas centradas en la mitología nórdica o general según la pregunta.",
+        },
         contents: userText, // La pregunta del usuario
       });
 
       // 3. Obtener la respuesta y añadirla al chat
       const botResponseText =
         response.text || "Odín no ha podido generar una respuesta.";
-
       const botResponse: Message = {
         id: Date.now() + 1,
         text: botResponseText,
