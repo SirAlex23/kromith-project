@@ -52,3 +52,5 @@ const AppContent = () => {
 };
 
 export default AppContent;
+
+/*Esto fuerza un nuevo build en Vercel */
